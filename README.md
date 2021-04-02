@@ -8,9 +8,9 @@ zMug.js: a JSON to HTML builder
 
 zMug.js takes its name from the "Indicator", **"HQIBPEXEZMUG".**, or ZeeMug/ZedMug in the cryptography sector. Like the Indicator, zMug.js is a "decrypter" which takes a JSON file and builds the HTML structures for each page is called.
 
-## How does it work? (version 0.1)
+## How does it work? (version 1)
 
-zMug fetches the needed information from a JSON file, and builds all the indicated elements in a master parent (v.0.1). You can create multiple children in a single instance, for recursively call zMug and build the content.
+zMug fetches the needed information from a JSON file, and builds all the indicated elements in a master parent (v.1). You can create multiple children in a single instance, for recursively call zMug and build the content.
 
 ### Basic data structure
 
@@ -119,7 +119,8 @@ NOTE: "name", "type" and "value" cannot be arrays of arrays as value. The other 
 
 
   - We want onmouseenter and onmouseleave on "exampleDiv1" and style on "exampleP":
-   ```
+  
+  ```
   {
     "name": ["exampleDiv1","exampleDiv2", "exampleP"],
     "type": ["div","div","p"],
@@ -134,7 +135,7 @@ NOTE: "name", "type" and "value" cannot be arrays of arrays as value. The other 
 
 6. "child": if you have multiple elements, you can have a single object or an array of objects for each element as children.
 
-   ```
+  ```
   {
     "name": ["exampleDiv1","exampleDiv2", "exampleP"],
     "type": ["div","div","p"],
