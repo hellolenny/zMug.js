@@ -135,7 +135,7 @@ NOTE: "name", "type" and "value" cannot be arrays of arrays as value. The other 
 
 6. "child": if you have multiple elements, you can have a single object or an array of objects for each element as children.
 
-  ```
+ ```
   {
     "name": ["exampleDiv1","exampleDiv2", "exampleP"],
     "type": ["div","div","p"],
@@ -157,7 +157,7 @@ NOTE: "name", "type" and "value" cannot be arrays of arrays as value. The other 
     }]
   }
   ```
-
-### Child and alternative types
-
+  
+### Recursive children and alternative types
+lorem
 ### Goals
