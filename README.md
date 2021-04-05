@@ -6,11 +6,30 @@ zMug.js: a JSON to HTML builder
 > *The Lorenz SZ40, SZ42a and SZ42b were German rotor stream cipher machines used by the German Army during World War II.*
 > *...The sender then retransmitted the message but, critically, did not change the key settings from the original **"HQIBPEXEZMUG".***
 
-zMug.js takes its name from the "Indicator", **"HQIBPEXEZMUG".**, or ZeeMug/ZedMug in the cryptography sector. Like the Indicator, zMug.js is a "decrypter" which takes a JSON file and builds the HTML structures for each page is called.
+zMug.js takes its name from the "Indicator", **"HQIBPEXEZMUG"**, or ZeeMug/ZedMug in the cryptography sector. Like the Indicator, zMug.js is a "decrypter" which takes a JSON file and builds the HTML structures for each page is called.
 
 ## How does it work? (version 1)
 
 zMug fetches the needed information from a JSON file, and builds all the indicated elements in a master parent (v.1). You can create multiple children in a single instance, for recursively call zMug and build the content.
+
+Every object in the JSON is an instance from which zMug creates the declared elements.
+
+After importing zMug.js, you need to call the main function:
+
+```
+zMug( "main container ID (a div, statically written into the HTMl, or body*)", "JSON URL");
+
+eg:
+
+zMug("mainDiv","https:\\yourdomain.com/assets/json/sample.json");
+
+--
+
+zMug("body","assets/json/sample.json");
+
+```
+
+After that, zMug automatically makes a XMLHttpRequest for the resource and the building begins.
 
 ### Basic data structure
 
@@ -60,9 +79,9 @@ zMug gives you the option to send arrays as values for every property. Please no
 
 #### Example
 
-As a case in-point, I need to build two divs and a p. Your data should be something like this:
+As a case in-point, I need to build two divs and a p with various attributes, classes and children elements. Your data should be something like this:
 
-1. "name" and "type": **name and value must have the same length**. You'll get a critical error if they don't match. If you need only one element
+1. "name" and "type": **name and value must have the same length**. You'll get a critical error if they don't match. If you need only one element, these can be strings.
 
   - In our example:
 
@@ -143,7 +162,7 @@ NOTE: "name", "type" and "value" cannot be arrays of arrays as value. The other 
     "class": [null,"classDiv2",["arrayClassP_1","arrayClassP_2","arrayClassP_3"]],
     "strong": [null,null,["Hello","This","JS"]],
     "attTyp": [["onmouseenter","onmouseleave"],null,"style"],
-    "attVal": [["function1()","function2()"],null,"width:200px;font-size:20px"]
+    "attVal": [["function1()","function2()"],null,"width:200px;font-size:20px"],
     "child": [[{
       "name": "exampleDiv1Child1",
       "type": "div"
@@ -158,6 +177,70 @@ NOTE: "name", "type" and "value" cannot be arrays of arrays as value. The other 
   }
   ```
   
-### Recursive children and alternative types
-lorem
+### An alternative method using an array of objects and "child"
+
+As just seen, you can compress every information for all children elements for a single parent in a single object. But you can use a different method with multiple objects as children. 
+
+For example, the previous example:
+
+  ```
+  {
+    "name": ["exampleDiv1","exampleDiv2", "exampleP"],
+    "type": ["div","div","p"],
+    "value": [null,null,"This is zMug. A JS builder!"],
+    "class": [null,"classDiv2",["arrayClassP_1","arrayClassP_2","arrayClassP_3"]],
+    "strong": [null,null,["Hello","This","JS"]],
+    "attTyp": [["onmouseenter","onmouseleave"],null,"style"],
+    "attVal": [["function1()","function2()"],null,"width:200px;font-size:20px"]
+    "child": [[{
+      "name": "exampleDiv1Child1",
+      "type": "div"
+    },{
+      "name": "exampleDiv1Child2",
+      "type": "div"
+    }],
+    {
+      "name": "exampleDiv2Child1",
+      "type": "div"
+    }]
+  }
+  ```
+
+can be written in this alternative way:
+
+  ```
+[{
+  "name":"exampleDiv1",
+  "type":"div",
+  "attTyp": ["onmouseenter","onmouseleave"],
+  "attVal": ["function1()","function2()"],
+  "child": [{
+    "name": "exampleDiv1Child1",
+    "type": "div"
+    },{
+    "name": "exampleDiv1Child2",
+    "type": "div"
+    }]
+},{
+  "name": "exampleDiv2",
+  "type": "div",
+  "class": "classDiv2",
+  "child": {
+    "name": "exampleDiv2Child1",
+    "type": "div"
+  }
+},{
+  "name": "exampleP",
+  "type": "p",
+  "value": "This is zMug. A JS builder!",
+  "class": ["arrayClassP_1","arrayClassP_2","arrayClassP_3"],
+  "strong": ["Hello","This","JS"],
+  "attTyp": "style",
+  "attVal": "width:200px;font-size:20px"
+}]
+  ```
+
+In this structure, every element has been broken down into a "child" object of its own. From the get go, an object is a single "child" instance, and this gives the advantage of a cleaner and more readable object structure (fewer arrays, almost no NULL values), but it's a bit more verbose.
+
+
 ### Goals
