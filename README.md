@@ -17,15 +17,11 @@ Every object in the JSON is an instance from which zMug creates the declared ele
 After importing zMug.js, you need to call the main function:
 
 ```
-zMug( "main container ID (a div, statically written into the HTMl, or body*)", "JSON URL");
+zMug( "main container ID (a div, statically written into the HTMl)", "JSON URL");
 
 eg:
 
 zMug("mainDiv","https:\\yourdomain.com/assets/json/sample.json");
-
---
-
-zMug("body","assets/json/sample.json");
 
 ```
 
