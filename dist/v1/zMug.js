@@ -252,14 +252,6 @@ var zmug = {
           }
         }
         break;
-      case "CTA":
-        if(value!=undefined){
-          build.el("#"+parent,"a",id);
-          build.el("#"+id,"div",id+"Main");
-          build.text("#"+id+"Main","h4",value,id+"h4");
-          build.el("#"+id,"div",id+"Dec");
-        }
-        break;
       case "img":
         if(value!=undefined){
           build.img("#"+parent,value,id);

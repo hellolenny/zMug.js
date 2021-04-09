@@ -112,7 +112,7 @@ NOTE: "name", "type" and "value" cannot be arrays of arrays as value. The other 
 
   ```
   {
-    "name": ["exampleDiv1","exampleDiv2", "exampleP"],
+    "name": ["exampleDiv1","exampleDiv2","exampleP"],
     "type": ["div","div","p"],
     "value": [null,null,"This is zMug. A JS builder!"],
     "class": [null,"classDiv2",["arrayClassP_1","arrayClassP_2","arrayClassP_3"]],
@@ -243,4 +243,15 @@ can be written in this alternative way:
 In this structure, every element has been broken down into a "child" object of its own. From the get go, an object is a single "child" instance, and this gives the advantage of a cleaner and more readable object structure (fewer arrays, almost no NULL values), but it's a bit more verbose.
 
 
-### Goals
+### To-do list
+
+- [ ] Remove main parent declaration.
+- [ ] Add custom element building (user-created templates).
+- [ ] Add data retrieval from database option.
+- [ ] Complete overhaul in a backend language (to deal with SEO problems).
+
+### Compatibility 
+
+Yet to be fully tested. Preliminary tests show IE11+ compatibility.
+
+
