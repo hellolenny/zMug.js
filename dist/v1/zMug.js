@@ -109,47 +109,50 @@ var zmug = {
       aV = r[tr].attrVal,
       ch = r[tr].child;
 
-      if(typeof id===typeof typ){
-        if(typeof id ==="string"){
-          zmug.Element(pa, id,typ,vl,st);
-        } else if(id.length===typ.length){
-          if(typeof id ==="object"){
-            for (let tid = 0; tid < id.length; tid++) {
-              var strong=undefined, 
-                  value=undefined;
-
-              if(vl==undefined){
-                if((typ[tid]=="img")||(typ[tid]=="h1")||(typ[tid]=="h2")||(typ[tid]=="h3")||(typ[tid]=="h4")||(typ[tid]=="h5")||(typ[tid]=="p")){
-                  console.log("Critical error: value for "+id[tid]+ "which is a "+typ[tid]+"is: "+vl+".");
+      if((id!=undefined)&&(typ!=undefined)){
+        if(typeof id===typeof typ){
+          if(typeof id ==="string"){
+            zmug.Element(pa, id,typ,vl,st);
+          } else if(id.length===typ.length){
+            if(typeof id ==="object"){
+              for (let tid = 0; tid < id.length; tid++) {
+                var strong=undefined, 
+                    value=undefined;
+  
+                if(vl==undefined){
+                  if((typ[tid]=="img")||(typ[tid]=="h1")||(typ[tid]=="h2")||(typ[tid]=="h3")||(typ[tid]=="h4")||(typ[tid]=="h5")||(typ[tid]=="p")){
+                    console.log("Critical error: value for "+id[tid]+ "which is a "+typ[tid]+"is: "+vl+".");
+                  }
+                }else{
+                  if(typeof vl == "object"){
+                    if(vl!==null){
+                      value = vl[tid];
+                    } 
+                  } else if(typeof vl == "string"){
+                    value = vl;
+                  }
                 }
-              }else{
-                if(typeof vl == "object"){
-                  if(vl!==null){
-                    value = vl[tid];
-                  } 
-                } else if(typeof vl == "string"){
-                  value = vl;
+  
+              if(st!=undefined){  
+                if(typeof id == "object"){
+                  if(typeof st == "object"){
+                    strong = st[tid];
+                  } else if(typeof st == "string"){
+                    strong = st;
+                  }
                 }
               }
-
-            if(st!=undefined){  
-              if(typeof id == "object"){
-                if(typeof st == "object"){
-                  strong = st[tid];
-                } else if(typeof st == "string"){
-                  strong = st;
-                }
+                zmug.Element(pa, id[tid],typ[tid],value,strong);
               }
-            }
-              zmug.Element(pa, id[tid],typ[tid],value,strong);
-            }
-          } 
+            } 
+          } else {
+            console.log("Error: id count: "+id.length+" is not equal to the element count: "+typ.length);
+          }
         } else {
-          console.log("Error: id count: "+id.length+" is not equal to the element count: "+typ.length);
+            console.log("Error: typeof id: "+typeof id+" is not equal to the typeof elements: "+typeof typ);
         }
-      } else {
-          console.log("Error: typeof id: "+typeof id+" is not equal to the typeof elements: "+typeof typ);
       }
+
 
       /* inject class */
 
@@ -250,6 +253,14 @@ var zmug = {
               att.strong("#"+id,strong[tst]);
             }
           }
+        }
+        break;
+      case "CTA":
+        if(value!=undefined){
+          build.el("#"+parent,"a",id);
+          build.el("#"+id,"div",id+"Main");
+          build.text("#"+id+"Main","h4",value,id+"h4");
+          build.el("#"+id,"div",id+"Dec");
         }
         break;
       case "img":
